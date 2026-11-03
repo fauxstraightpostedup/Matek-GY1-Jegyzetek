@@ -151,8 +151,6 @@ Nevezetes halmazok:
 	Ilyen a $pi$ és az $e$.
 ]
 
-#pagebreak()
-
 == A valós számok axiómarendszere
 Értelmezzük a valós számok számok halmazán két bináris műveletet, az összeadást $(+)$ és a szorzást $(dot)$, és egy relációt $(>)$
 #proposition[
@@ -217,7 +215,9 @@ Ha nincs olyan $n$ természetes szám amire a fenti feltétel teljesül, és az 
 
 = Sorozatok, sorozatok határértékei
 
-== Def.: (Numerikus) sorozat határértéke
+
+#definition[
+(Numerikus) sorozat határértéke
 
 $ a_n: NN^+ arrow RR  $ 
 $ exists a in RR quad forall epsilon > 0 quad exists N(epsilon) in NN $
@@ -230,7 +230,9 @@ $ lim_(n arrow oo) a_n = lim_(n arrow oo) b_n + (lim_(n arrow oo) c_n) i $
 2. Ahol $bold(e)_j$ vektorok $RR^k$ ortonormális bázisai. (Itt $a^j$ nem hatványozás, csak felsőindexes számozás)
 $ bold(a)_n = sum_(j=1)^k a^j_n bold(e)_j $
 $ lim_(n arrow oo) bold(a)_n = sum_(j=1)^k (lim_(n arrow oo) a^j_n) bold(e)_j $
-== Áll.: Konvergens sorozat korlátos.
+]
+#proposition[
+Konvergens sorozat korlátos.\
 Lemma: Véges halmaznak létezik minimuma és maximuma.
 A határérték def. szerint:
 
@@ -239,14 +241,14 @@ $ exists a in RR quad forall epsilon > 0 quad exists N(epsilon) in NN $
 $ |a_n-a|<epsilon quad n>N(epsilon) $ 
 Szóval tetszőleges $n>N(epsilon)$ esetén minden $a_n$ $a$ $epsilon$-sugarú környezetébe esik, aminek korlátai $K=a+epsilon$ és $k=a-epsilon$
 Mivel véges szám esik a sugaron kívül, a sugaron kívül eső értékeknek $S = {k | k<N(epsilon) | k in NN^+}$ is lesz felső- és alsó korlátja. A felső korlátok közül a nagyobb, az alsó korlátok közül a kisebb lesz a teljes sorozat felső- és alsó korlátja.
-
-== Def.: Műveletek numerikus sorozatokkal
+]
+#definition[ Műveletek numerikus sorozatokkal
 Legyenek $a_n$ és $b_n$ numerikus sorozatok.
 $ (a_n) + (b_n) = (a_n + b_n) $
 $ lambda (a_n) = (lambda a_n)  $
 $ (a_n) dot (b_n) = (a_n dot b_n) $
 $ (a_n)/(b_n) = (a_n/b_n) quad b_n !=0 $
-
+]
 
 Legyenek $a_n$ és $b_n$ konvergens sorozatok, ahol $lim_(n arrow oo) a_n = a$ és $lim_(n arrow oo) b_n = b$
 $ lim_(n arrow oo) a_n + b_n = a+b $
@@ -254,14 +256,17 @@ $ lim_(n arrow oo) lambda a_n = lambda a $
 $ lim_(n arrow oo) a_n dot b_n = a dot b $
 $ lim_(n arrow oo) a_n / b_n = a/b quad quad b!=0 quad b_n != 0 $
 
-== Biz. 1.:
-Áll.: $ lim_(n arrow oo) a_n + b_n = a+b $
+#proposition[
+$ lim_(n arrow oo) a_n + b_n = a+b $
+]
+#proof[
 Mivel $a_n$ konvergens $arrow.double$ $|a_n-a|<epsilon/2 "ha" n>N_1(epsilon/2)$
 
 Mivel $b_n$ konvergens $arrow.double$ $|b_n-b|<epsilon/2 "ha" n>N_2(epsilon/2)$
 
 $ |(a_n+b_n)-(a+b)| = |(a_n-a)+(b_n-b)| <= |a_n-a|+|b_n-b| < epsilon $
 Ha $n>max(N_1(epsilon/2), N_2(epsilon/2))$
+]
 == Biz. 2.:
 Áll.: $ lim_(n arrow oo) lambda a_n = lambda a $
 Ha $lambda != 0$ ($lambda = 0$ triviális)
@@ -807,3 +812,72 @@ Legyen $f$ szig. mon és folytonos az $x_0$ pontban és annak egy környezetébe
 	$	
 ]
 
+#proposition[
+	Legyen $f: I arrow RR$ $n>1$-szer differenciálható $I$-n. $alpha in "int" D_f$. Ha $f'(alpha) = f''(alpha) = ... = f^(n-1) (alpha) = 0$ és $f^n (alpha != 0)$, akkor a következőt tudjuk:
+	- Ha $n$ páratlan, akkor nincs szélsőérték
+	- Ha $n$ páros, akkor van lokális szélsőérték, és
+		- $f^n (alpha) > 0$ esetén lokális minimum
+		- $f^n (alpha) > 0$ esetén lokális maximum
+]
+
+#proof[
+	$
+	f(x) = T_(n-2) (x) + R_(n-2) (x)\
+	f(x) = sum_(k=0)^(n-2) (f^k (alpha))/(k!) (x-alpha)^k + (f^(n-1) (xi))/((n-1)!) (x-alpha)^(n-1)\
+	$
+	De a függvény ismert tulajdonságai szerint $T_(n-2) = f(alpha)+ 0 $
+	$
+	f(x) = f(alpha)+ (f^(n-1) (xi))/((n-1)!) (x-alpha)^(n-1)\
+	f(x) - f(alpha) = (f^(n-1) (xi))/((n-1)!) (x-alpha)^(n-1)\
+	f^n (alpha) = lim_(t arrow alpha) (f^(n-1) (t)- f^(n-1)(alpha))/(t-alpha) = lim_(t arrow alpha) (f^(n-1) (t))/(t-alpha)
+	$
+	Tegyük fel, hogy $f^n (alpha) > 0$. Ekkor $lim_(t arrow alpha) (f^n (t))/(t-alpha) > 0$.
+	Első eset: $n$ páratlan $==> n-1$ páros
+	$
+	lim_(t arrow alpha) (f^(n-1) (t))/(t-alpha)
+	$
+	Vagy:
+	$
+	f^(n-1) (t) > 0 and t>alpha\
+	or\
+	f^(n-1) (t) < 0 and t<alpha
+	$
+	Tehát $f(x)-f(alpha)$ előjelet vált $alpha$ pont közelében, szóval nem lehet szélsőérték.
+	Ha $n$ páratlan, tehát $n-1$ páros:
+	$
+	f(x) - f(alpha) = (f^(n-1) (xi))/((n-1)!) underbrace((x-alpha)^(n-1), "mindig pozitív")\
+	$
+	Tehát $f(alpha)$ lokális minimum.
+]
+
+#definition[
+	Ha van olyan $g(x): y= A x + B$ alakú lineáris függvény, hogy
+	$
+	lim_(x arrow +- oo) (f(x)-g(x)) = lim_(x arrow +- oo) (f(x)- (A x - B))=0 
+	$
+	Akkor $g(x) quad f(x)$ aszimptótája.
+]
+#remark[
+	Figyeljük meg, hogy eszerint a definíció szerint egy függvény metszheti aszimptótáját.
+]
+#example[
+	$
+	f(x) = x + sin(x)/x
+	$
+]
+#proposition[	
+	Ha $f$-nek van aszimptotája:
+	$
+	lim_(x arrow +- oo) f(x)/x = A and lim_(x arrow +- oo) f(x)-A x = b\
+	0 = lim_(x arrow +- oo) x (underbrace(f(x)/x -A,arrow 0) - underbrace(B/x,arrow 0))\
+	lim_(x arrow +- oo) f(x)/x-A =0\
+	lim_(x arrow +- oo) f(x)/x=A
+	$
+]
+#theorem[
+	_*L'Hospital-szabály*_ szerint: legyenek $f$ és $g$ differenciálható függvények egy $alpha$ pont környezetében ($alpha$-ban nem szükséges). Továbbá $g(x) != 0$ és $g'(x) != 0$ $alpha$ egy környezetében, és $lim_(x arrow alpha) f(x) = lim_(x arrow alpha) g(x) = 0$, vagy $lim_(x arrow alpha) |f(x)| = lim_(x arrow alpha) |g(x)| = oo$. Ebben az esetben:
+	$
+	lim_(x arrow alpha) f(x)/g(x) = lim_(x arrow alpha) (f'(x))/(g'(x))
+	$
+	Ez igaz $alpha = a, alpha = a-0,alpha = a+0, alpha = +- oo $ esetén, és a hányados is lehet végtelen.
+]

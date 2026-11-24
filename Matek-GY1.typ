@@ -881,3 +881,140 @@ Legyen $f$ szig. mon és folytonos az $x_0$ pontban és annak egy környezetébe
 	$
 	Ez igaz $alpha = a, alpha = a-0,alpha = a+0, alpha = +- oo $ esetén, és a hányados is lehet végtelen.
 ]
+
+
+== Határozatlan, Határozott integráció
+
+#theorem[
+	Legyen $f arrow [a;b]$ korlátos függvény. Ekkor $forall epsilon>0 quad exists delta(epsilon)$ úgy, hogy ha $d$ $[a;b]$ egy beosztása, melynek finomságára teljesül, hogy $||d||<delta(epsilon)$, akkor 
+	$
+	"teljesül"
+	cases(0<underline(I)-s(f,d)<epsilon,
+	0<S(f,d)-overline(I)<epsilon)
+	$
+	Ebből következik, hogy $d_k$ normális beosztássorozat esetén
+	$
+	lim_(k arrow oo) sigma(f, d_k) = underline(I)\
+	overline(I) = lim_(k arrow oo) sigma(f, d_k)
+	$
+	Tehát $underline(I) = overline(I)$.
+]
+
+
+=== A Riemann-integrálhatóság kritériumai
+1. Oszcillációs összeg #footnote[
+	Senki nem tudja hogy miért hívják így.
+] $cal(O)(f,d) = S(f,d)-s(f,d)$
+#theorem[
+	Legyen $f arrow [a;b]$ korlátos függvény. $f$ Riemann-integrálható akkor és csak akkor, ha $forall epsilon>0 quad exists d$ beosztása $[a;b]$-nek, hogy $cal(O)(f,d)<epsilon$
+]
+#proof[
+	1. $f in cal(R) [a;b] arrow underline(I) = overline(I) = I ==> forall epsilon>0 and ||d||<delta(epsilon) $
+	$
+	I-s(d,f)<epsilon/2\
+	S(f,d)-I<epsilon/2\
+	==> S(f,d)-s(f,d) = cal(O)(f,d) <epsilon
+	\ qed
+	$
+	2. $0<= overline(I)-underline(I) <= S(f,d)-s(f,d) = cal(O)(f,d) <= epsilon  ==> overline(I) = underline(I )$
+	$ ==> f in cal(R) [a;b] \
+	qed
+
+	$
+]
+2. Integrálközelítő összeggel
+#theorem[
+	Legyen $f arrow [a;b]$ korlátos függvény. $f in cal(R)[a;b]$, ha $exists I in RR$, hogy $forall epsilon>0$ van olyan $delta(epsilon)>0$, hogy ha $d$ egy olyan beosztása $[a;b]$-nek, melynek $||d||<delta(epsilon)$ és $t(t_1,t_2 ... t_k)$ tetszőleges közbeesőérték vektor, akkor $|sigma(f,d,t)-I|<epsilon$.
+]
+#proof[
+	1. $f in cal(R)[a;b] ==> underline(I) = overline(I)$
+	$
+	I-s(d,f)<epsilon, "ahol" ||d||<delta(epsilon) \ 
+	S(f,d)-I<epsilon\
+	==> S(f,d) < I + epsilon\
+	s(f,d) > I-epsilon\
+	I-epsilon< s(f,d) <= sigma(f,d,t) <= S(f,d)<I+epsilon\
+	-epsilon < sigma(f,d,t) < epsilon\
+	|sigma(f,d,t)| < epsilon
+	$
+	2. \ $|overline(I)-underline(I)| <= |overline(I)-S(f,d)+S(f,d)-sigma(f,d,T)+sigma(f,d,T)-I+I-sigma(f,d,t)+sigma(f,d,t)-s(f,d)+s(f,d)-underline(I)| $
+	$<= |overline(I)-S(f,d)| $
+
+]
+3. 
+#theorem[
+	$f arrow [a;b]$ korlátos függvény és $f in cal(R)[a;b]$ $<=>$ $forall d_k$ normális beosztássorozat és ($t_k$) közbeesőérték vektorsorozat esetén a $sigma(f,d_k,t_k)$ konvergens és $lim_(k arrow oo) sigma(f,d_k,t_k) = I$
+]
+#proof[
+1.
+	Mivel $f$ Riemann integrálható, 
+	$
+	s(f,d_k) <= sigma(f,d_k,t_k) <= S(f,d_k)
+	$
+	Rendőrelv szerint $sigma(f,d_k,t_k) = I$
+
+2.
+	Legyenek $t_k, T_k$ közbeesőérték-rendszerek.
+	$
+	lim_(k arrow oo) sigma(f, d_k, t_k)= I_1, lim_(k arrow oo) sigma(f, d_k, T_k) = I_2
+	$
+	$
+	tilde(t)_k = cases(
+		t_k ", ha "k" páros",
+		T_k ", ha "k" páratlan"
+	)\
+	lim_(k arrow oo) sigma(f,d_k,tilde(t)_k)
+	$
+	Mivel minden $sigma$ konvergens, a részsorozatok határértékei is azonosak. $I_1 = I_2$
+	
+	
+]
+#remark[
+	Minden Newton-Leibniz integrálható függvény Riemann-integrálható, de nincs minden Newton-Leibniz integrálható függvénynek elemi (zárt alakú) integrálja.
+]
+#proof[
+	Legyen $x_1, x_2 in (a;b) and f in cal(R)[a;b]$. Ekkor:
+	$
+	|F(x_2)-F(x_1)| = |integral_a^x_2 f(t) dif t-integral_a^x_1 f(t) dif t | = |integral^(x_2)_x_1 f(t) dif t| <= integral^(x_2)_x_1 |f(t)| dif t <= \
+	<= integral_(x_1)^x_2 K dif t = underbrace(K|x_2-x_1|,"tetszőleges kicsivé tehető")
+	$
+	$
+	F'(x) = 1/h (integral_a^x_2 f(t) dif t-integral_a^x_1 f(t) dif t ) = 1/h integral^(x_2)_x_1 f(t) dif t\
+	1 = 1/h integral_(x_0)^(x_0+h) 1 dif t \
+	f(x_0) = 1/h integral_(x_0)^(x_0+h) f(x_0) dif t \
+	|(F(x_0+h)-F(x_0))/h-f(x_0)| = 1/h integral_(x_0)^(x_0+h) f(t) dif t-1/h integral_(x_0)^(x_0+h) f(x_0) dif t = \
+	= 1/h integral_(x_0)^(x_0+h) f(t)-f(x_0) dif t <= 1/h integral_(x_0)^(x_0+h) underbrace(|f(t)-f(x_0)|, < epsilon) dif t < 1/h integral_(x_0)^(x_0+h) epsilon  dif t = \
+	= h/h epsilon = epsilon
+	
+	$
+]
+== Parciális integrálás
+$
+integral_a^b f' g = [f g]_a^b - integral_a^b f g'
+$
+== Improprius integrál
+Azaz: nem szabályszerűen viselkedő függvények integrálása.
+
+#definition[
+	$a,b in RR_b$
+	Feltételek:
+	1. $forall [x;y] in (a;b)$ esetén $f in cal(R)[x;y]$
+	2. $exists c: a<c<b$, hogy $lim_(x arrow a) integral_x^c f(t) dif t $ és $lim_(y arrow a) integral_c^y f(t) dif t $ határértékek léteznek és végesek. Ekkor az $ I =lim_(x arrow a) integral_x^c f(t) dif t +lim_(y arrow a) integral_c^y f(t) dif t $ összeget $f$ függvény $(a;b)$-n vett improprius integráljának nevezzük. Ha $I in RR$ akkor konvergens, ha nem létezik vagy $I = +oo or I= -oo$ akkor divergens.
+]
+#remark[
+	$I$ értéke független $c$ megválasztásától.
+]
+
+#proposition[
+	Az ívhosszúságot mérhetjük az alábbi módon:
+	$
+	dif s ^2 = dif x^2 + dif y^2 \
+	dif s = sqrt(dif x^2 + dif y^2) = dif x sqrt(1 + ((dif y )/(dif x))^2 ) \
+	integral_l dif s = integral_l sqrt(1 + ((dif y )/(dif x))^2 ) dif x \
+	s = integral_l sqrt(1+f'(x)^2) dif x
+	$
+]
+#definition[
+	_*Parametrizált görbe*_ $P_n = (x_n (t); y_n (t))$ (vagy polárkoordinátákban $P_n = (r_n (t); phi_n (t))$ )
+]
+ 
